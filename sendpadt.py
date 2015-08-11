@@ -34,23 +34,17 @@ def usage():
         
         --debug | -d
 
-<<<<<<< HEAD
-=======
         --iface | -i <physical interface>, default to eth1 if not specified 
 
->>>>>>> ed72e104018715a2bd1b4376150010a0f49b3803
     The session Id is 10-base
     """
 
 
 def config_syslog(aptname):
-<<<<<<< HEAD
     global verbose, _debug
 
     if _debug: 
         print "%s: aptname=%s" % (sys._getframe().f_code.co_name, aptname)
-=======
->>>>>>> ed72e104018715a2bd1b4376150010a0f49b3803
     logger = logging.getLogger(aptname)
     logger.setLevel(logging.DEBUG)
     #handler = logging.handlers.SysLogHandler(address = '/dev/log')
@@ -98,12 +92,9 @@ def send_padt(mysrc, mydst, sid):
 
     eth_frame = scp.Ether(dst=mydst, src=mysrc)
     padt_pkt = eth_frame/scp.PPPoED(code=0xa7,sessionid=sesid)
-<<<<<<< HEAD
     if verbose:
         scp.ls(padt_pkt)
-=======
-    scp.ls(padt_pkt)
->>>>>>> ed72e104018715a2bd1b4376150010a0f49b3803
+    #scp.ls(padt_pkt)
     mylog.info("sending PADT (sed=%d) pkt from %s (this PC) to %s" % (sesid, mysrc, mydst))
     scp.sendp(padt_pkt, iface=myiface, verbose=1)
 
@@ -138,11 +129,8 @@ def main(argv):
     #scp.sendrecv.sniff(iface="eth1", filter='pppoed', prn=lambda x: x.show() )
 
     for opt, arg in opts:
-<<<<<<< HEAD
         if _debug:
             print "opt=", opt, ", arg=",arg
-=======
->>>>>>> ed72e104018715a2bd1b4376150010a0f49b3803
         if opt in ("-h", "--help"):
             usage()
             sys.exit()
@@ -165,7 +153,6 @@ def main(argv):
         # end if
     # end for
 
-<<<<<<< HEAD
     if _debug:
         print "HOI!!! opts=", opts, ", args=", args
 
@@ -177,9 +164,7 @@ def main(argv):
                 print "dst parameter is empty"
             if (len(sid) == 0):
                 print "session-id is not specified"
-=======
     if (len(src) > 0) and (len(dst) > 0) and (len(sid) > 0):
->>>>>>> ed72e104018715a2bd1b4376150010a0f49b3803
         send_padt(src, dst, sid)
     else:
         usage()
@@ -195,13 +180,10 @@ if __name__ == "__main__":
     # end if
 
     #use syslog
-<<<<<<< HEAD
     _debug=1
     mylog = config_syslog(os.path.splitext(os.path.basename(sys.argv[0]))[0])
     _debug=0
-=======
     mylog = config_syslog(sys.argv[0])
->>>>>>> ed72e104018715a2bd1b4376150010a0f49b3803
 
     main(sys.argv[1:])
     mylog.info('**** %s has stopped **** ' % sys.argv[0])
